@@ -1,0 +1,1 @@
+1 - in dev script of package json -> may output.css not be created when App.jsx is trying to import that 
