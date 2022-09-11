@@ -6,7 +6,6 @@ import { CommonCharts } from "./components/CommonCharts";
 import { useState } from "react";
 import "./styles.css";
 export default function App() {
-	var [tab, set_tab] = useState("compressors");
 	return (
 		<BrowserRouter>
 			<div className="w-full h-full flex flex-row">
