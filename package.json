@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx tailwindcss -c ./tailwind.config.cjs -i ./src/input.css -o ./src/output.css --watch & vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "export data_absolute_file_path=/home/hamedpro/coding/chiller_charts/data_example.txt ;npx tailwindcss -c ./tailwind.config.cjs -i ./src/input.css -o ./src/output.css --watch & vite & nodemon ./api/server.cjs"
   },
   "dependencies": {
     "chart.js": "^3.9.1",

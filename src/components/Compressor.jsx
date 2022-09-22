@@ -1,8 +1,7 @@
-import { useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export function Compressor() {
-	useCallback(() => {}, []);
 	var compressor_id = useParams().compressor_id;
 	return <div id="chart"></div>;
 }
