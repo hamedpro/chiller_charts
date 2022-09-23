@@ -10,10 +10,9 @@ app.use(express.json())
 if (!fs.existsSync('./settings.json')) {
     fs.writeFileSync('./settings.json', JSON.stringify({}))
 }
-
+var processed_data = process_data(process.env.data_absolute_file_path)
 app.get('/compressors', (req, res) => {
     try {
-        var processed_data = process_data(process.env.data_absolute_file_path)
         res.status(200)
         res.json(processed_data)
     } catch (e) {
@@ -21,12 +20,34 @@ app.get('/compressors', (req, res) => {
         res.json(e)
     }
 })
+app.get('/compressors/:compressor_id', (req, res) => {
+    try {
+        res.status(200)
+        res.json(processed_data)
+    } catch (e) {
+        res.status(500)
+        res.json(e)
+    }
+})
+
 app.get('/common', (req, res) => {
-    res.send()
+    res.json({
+        
+    })
 })
 app.get('/settings', (req, res) => {
     try {
         res.json(JSON.parse(fs.readFileSync('./settings.json','utf8')))
+    } catch (e) {
+        res.status(500)
+        res.json(e)
+    }
+})
+app.post('/settings', (req, res) => {
+    try {
+        console.log(req.body)
+        fs.writeFileSync('./settings.json', JSON.stringify(req.body.settings)) //received settings should be JSON stringified
+        res.json({})
     } catch (e) {
         res.status(500)
         res.json(e)

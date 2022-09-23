@@ -8,7 +8,6 @@ export function SideBar() {
     var [current_location_pathname, set_current_location_pathname] = useState(loc.pathname)
     useEffect(() => {
         set_current_location_pathname(loc.pathname)
-        console.log(loc.pathname)
     }, [loc])
     var routes = [
         {

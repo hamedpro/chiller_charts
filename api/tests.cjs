@@ -1,3 +1,5 @@
+const { simple_compare } = require('./helpers.cjs')
+
 var items_are_same = require('./helpers.cjs').items_are_same
 
 function test_result({
@@ -14,4 +16,7 @@ test_result({
     items_are_same([1, 1, 1]) === true &&
     items_are_same([3,1,1]) === false)
 })
-console.log(items_are_same([1,2,3],true))
+test_result({
+    name: "simple_compare function",
+    result: simple_compare({ name: "hamed", lname : "yaghoot"}, {lname : "yaghoot",name : "hamed"})
+})

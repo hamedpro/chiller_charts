@@ -7,6 +7,7 @@ import { useState } from "react";
 import "./styles.css";
 import { useEffect } from "react";
 import { SideBar } from "./components/SideBar";
+import { Settings } from "./components/settings";
 export default function App() {
 	return (
 		<BrowserRouter>
@@ -20,7 +21,8 @@ export default function App() {
 						<Route path="/" element={<Compressors />} />
 						<Route path="/compressors" element={<Compressors />} />
 						<Route path="/compressors/:compressor_id" element={<Compressor />} />
-						<Route path="/common_charts" element={<CommonCharts />} />
+						<Route path="/common" element={<CommonCharts />} />
+						<Route path="/settings" element={<Settings />} />
 					</Routes>
 				</div>
 			</div>
