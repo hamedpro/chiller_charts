@@ -33,6 +33,9 @@ function parse_data_part(string) {
         string = string.split('')
         val = string.splice(0, count_of_numbers_or_dots)
         string = string.join('')
+        if (Object.keys(result).includes(key)) {
+            console.log(`duplicate field was detected : field key is same : field key = "${key}"`)
+        }
         result[key] = val.join('')
     }
     return result
@@ -73,9 +76,10 @@ function gen_processed_file(file_path,lines_limit=undefined) {
     fs.writeFileSync('processed_data.json',JSON.stringify(process_data(file_path,lines_limit),null,4))
 }
 //process_data('/home/hamedpro/coding/chiller_charts/data_example.txt')
-//gen_processed_file('/home/hamedpro/coding/chiller_charts/data_example.txt')
+//gen_processed_file('/home/hamedpro/coding/chiller_charts/data_example.txt',2)
 
-gen_processed_file('/home/hamedpro/coding/chiller_charts/data_example.txt',2)
+gen_processed_file('/home/hamedpro/coding/chiller_charts/data_example.txt')
+
 module.exports = {
     process_data
 }
