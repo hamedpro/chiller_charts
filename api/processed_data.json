@@ -1,12 +1,89 @@
 {
-	"seperated_date": "date:2022: 7: 3 ",
-	"seperated_clock": "Clock16:46:39",
-	"lines": [
-		{
-			"errors_part": "Er1:76Er2:14Er3:95Er4:9Er5:0Er6:0Er7:0Er8:0Er9:0Er10:0Er11:0Er12:0Er13:0Er14:0Er15:0Er16:15Er17:255Er18:0Er19:0Er20:15Er21:255Er22:0Er23:0Er24:0Er25:2Er26:0Er27:0Er28:15",
-			"data_part": "temp_inlet=31.2temp_outlet=19.2temp_hit=31.1temp_suc1=32.1temp_dis1=30.2temp_liq1=30.2temp_ev1=30.5temp_suc2=31.6temp_dis2=31.1tempp_suc1=119.9p_dis1=138.8p_suc2=110.0pct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4p_suc1=119.9p_dis1=138.8p_suc2=110.0pct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4ct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4EV1=150EV2=150ernumb=4com_no=1setpoint=13ernumb=4",
-			"errors": "[\"Er1:76\",\"Er2:14\",\"Er3:95\",\"Er4:9\",\"Er5:0\",\"Er6:0\",\"Er7:0\",\"Er8:0\",\"Er9:0\",\"Er10:0\",\"Er11:0\",\"Er12:0\",\"Er13:0\",\"Er14:0\",\"Er15:0\",\"Er16:15\",\"Er17:255\",\"Er18:0\",\"Er19:0\",\"Er20:15\",\"Er21:255\",\"Er22:0\",\"Er23:0\",\"Er24:0\",\"Er25:2\",\"Er26:0\",\"Er27:0\",\"Er28:15\"]",
-			"data": "null"
-		}
-	]
+    "seperated_date": "date:2022: 7: 3 ",
+    "seperated_clock": "Clock16:46:39",
+    "lines": [
+        {
+            "errors": {
+                "1": "76",
+                "2": "14",
+                "3": "95",
+                "4": "9",
+                "16": "15",
+                "17": "255",
+                "20": "15",
+                "21": "255",
+                "25": "2",
+                "28": "15"
+            },
+            "data": {
+                "temp_inlet": "31.2",
+                "temp_outlet": "19.2",
+                "temp_hit": "31.1",
+                "temp_suc1": "32.1",
+                "temp_dis1": "30.2",
+                "temp_liq1": "30.2",
+                "temp_ev1": "30.5",
+                "temp_suc2": "31.6",
+                "temp_dis2": "31.1",
+                "tempp_suc1": "119.9",
+                "p_dis1": "138.8",
+                "p_suc2": "110.0",
+                "pct1_1": "3.6",
+                "ct1_2": "3.6",
+                "ct2_1": "3.7",
+                "ct2_2": "3.7",
+                "ct1_fan": "3.6",
+                "ct2_faEV1": "150",
+                "EV2": "150",
+                "ernumb": "4",
+                "p_suc1": "119.9",
+                "ct1_1": "3.6",
+                "EV1": "150",
+                "com_no": "1",
+                "setpoint": "13"
+            },
+            "data_part": "temp_inlet=31.2temp_outlet=19.2temp_hit=31.1temp_suc1=32.1temp_dis1=30.2temp_liq1=30.2temp_ev1=30.5temp_suc2=31.6temp_dis2=31.1tempp_suc1=119.9p_dis1=138.8p_suc2=110.0pct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4p_suc1=119.9p_dis1=138.8p_suc2=110.0pct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4ct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4EV1=150EV2=150ernumb=4com_no=1setpoint=13ernumb=4"
+        },
+        {
+            "errors": {
+                "1": "76",
+                "2": "14",
+                "3": "95",
+                "4": "9",
+                "16": "15",
+                "17": "255",
+                "20": "15",
+                "21": "255",
+                "28": "15"
+            },
+            "data": {
+                "temp_inlet": "31.2",
+                "temp_outlet": "19.2",
+                "temp_hit": "31.1",
+                "temp_suc1": "32.1",
+                "temp_dis1": "30.2",
+                "temp_liq1": "30.3",
+                "temp_ev1": "30.5",
+                "temp_suc2": "31.6",
+                "temp_dis2": "31.1",
+                "tempp_suc1": "119.9",
+                "p_dis1": "138.8",
+                "p_suc2": "110.0",
+                "pct1_1": "3.6",
+                "ct1_2": "3.6",
+                "ct2_1": "3.7",
+                "ct2_2": "3.7",
+                "ct1_fan": "3.6",
+                "ct2_faEV1": "150",
+                "EV2": "150",
+                "ernumb": "4",
+                "p_suc1": "119.9",
+                "ct1_1": "3.6",
+                "EV1": "150",
+                "com_no": "1",
+                "setpoint": "13"
+            },
+            "data_part": "temp_inlet=31.2temp_outlet=19.2temp_hit=31.1temp_suc1=32.1temp_dis1=30.2temp_liq1=30.3temp_ev1=30.5temp_suc2=31.6temp_dis2=31.1tempp_suc1=119.9p_dis1=138.8p_suc2=110.0pct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4p_suc1=119.9p_dis1=138.8p_suc2=110.0pct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4ct1_1=3.6ct1_2=3.6ct2_1=3.7ct2_2=3.7ct1_fan=3.6ct2_faEV1=150EV2=150ernumb=4EV1=150EV2=150ernumb=4com_no=1setpoint=13ernumb=4"
+        }
+    ]
 }
