@@ -1,2 +1,3 @@
 1 - in dev script of package json -> may output.css not be created when App.jsx is trying to import that 
 install nodemon as local dep
+float numbers in js and when you add them to each other 
