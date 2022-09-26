@@ -92,7 +92,7 @@ function gen_processed_file(file_path, lines_limit = undefined) {
 //process_data('/home/hamedpro/coding/chiller_charts/data_example.txt')
 //gen_processed_file('/home/hamedpro/coding/chiller_charts/data_example.txt',2)
 
-gen_processed_file("/home/hamedpro/coding/chiller_charts/data_example.txt", 1);
+//gen_processed_file("/home/hamedpro/coding/chiller_charts/data_example.txt", 1);
 
 module.exports = {
 	process_data,

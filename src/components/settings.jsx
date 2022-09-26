@@ -29,9 +29,6 @@ export function Settings() {
         }).finally(fetch_data)
     }
     useEffect(fetch_data, [])
-    useEffect(() => {
-        var chart_el = document.getElementById('my_chart')
-    },[])
     return (
         <>
             {settings === null && (
@@ -44,7 +41,6 @@ export function Settings() {
                 </>
             )}
             <button onClick={() => upload_settings({ borders: "red" })}>upload fake settings</button>
-            <canvas id="my_chart"></canvas>
         </>
     )
 }

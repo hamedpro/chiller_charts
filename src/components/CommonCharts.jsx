@@ -14,15 +14,19 @@ export function CommonCharts() {
 			console.log(error )
 		})
 	}
-	useEffect(fetch_data,[])
+	useEffect(fetch_data, [])
+	
 	return (
 		<>
 			{common_data === null && (
 				<h1>common data is being loaded</h1>
 			)}
 			{common_data !== null && (
-				<h1>{ JSON.stringify(common_data)}</h1>
+				<>
+					
+				</>
 			)}
+			
 		</>
 	);
 }

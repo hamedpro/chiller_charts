@@ -9,39 +9,21 @@ app.use(express.json())
 //initializing settings.json
 if (!fs.existsSync('./settings.json')) {
     fs.writeFileSync('./settings.json', JSON.stringify({}))
+    console.log('settings.json was created automatically')
 }
-var processed_data = process_data(process.env.data_absolute_file_path)
-app.get('/compressors', (req, res) => {
-    try {
-        res.status(200)
-        res.json(processed_data)
-    } catch (e) {
-        res.status(500)
-        res.json(e)
-    }
-})
-app.get('/compressors/:compressor_id', (req, res) => {
-    try {
-        res.status(200)
-        res.json(processed_data)
-    } catch (e) {
-        res.status(500)
-        res.json(e)
-    }
-})
 
-app.get('/common', (req, res) => {
-    res.json({
-        
-    })
-})
-app.get('/settings', (req, res) => {
+var processed_data = process_data(process.env.data_absolute_file_path)
+app.get('/', (req, res) => {
     try {
-        res.json(JSON.parse(fs.readFileSync('./settings.json','utf8')))
+        res.json({
+        settings: JSON.parse(fs.readFileSync('./settings.json', 'utf8')),
+        ...processed_data
+        })
     } catch (e) {
         res.status(500)
         res.json(e)
     }
+    
 })
 app.post('/settings', (req, res) => {
     try {
