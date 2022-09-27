@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./output.css";
 import { Compressors } from "./components/Compressors";
-import { Compressor } from "./components/Compressor";
 import { CommonCharts } from "./components/CommonCharts";
 import { useState } from "react";
 import "./styles.css";
@@ -20,7 +19,6 @@ export default function App() {
 					<Routes>
 						<Route path="/" element={<Compressors />} />
 						<Route path="/compressors" element={<Compressors />} />
-						<Route path="/compressors/:compressor_id" element={<Compressor />} />
 						<Route path="/common" element={<CommonCharts />} />
 						<Route path="/settings" element={<Settings />} />
 					</Routes>
