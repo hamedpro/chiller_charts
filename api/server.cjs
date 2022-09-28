@@ -5,7 +5,7 @@ var fs = require('fs')
 var app = express()
 app.use(cors())
 app.use(express.json())
-var fake_data = require('./fake_data.cjs').fake_data
+var gen_fake_data = require('./fake_data.cjs').gen_fake_data
 
 //initializing settings.json
 if (!fs.existsSync('./settings.json')) {
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
         settings: JSON.parse(fs.readFileSync('./settings.json', 'utf8')),
         ...processed_data
         }) */
-        res.json(fake_data)
+        res.json(gen_fake_data())
     } catch (e) {
         res.status(500)
         res.json(e)
