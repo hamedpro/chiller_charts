@@ -12,7 +12,9 @@ if (!fs.existsSync('./settings.json')) {
     fs.writeFileSync('./settings.json', JSON.stringify({}))
     console.log('settings.json was created automatically')
 }
-
+function read_settings() {
+    return JSON.parse(fs.readFileSync('./settings.json', 'utf8'))
+}
 var processed_data = process_data(process.env.data_absolute_file_path)
 app.get('/', (req, res) => {
     try {
@@ -29,8 +31,11 @@ app.get('/', (req, res) => {
 })
 app.post('/settings', (req, res) => {
     try {
-        console.log(req.body)
-        fs.writeFileSync('./settings.json', JSON.stringify(req.body.settings)) //received settings should be JSON stringified
+        var settings = read_settings()
+        Object.keys(req.body).forEach(key => {
+            settings[key] = req.body[key]
+        })
+        fs.writeFileSync('./settings.json', JSON.stringify(settings)) //received settings should be JSON stringified
         res.json({})
     } catch (e) {
         res.status(500)

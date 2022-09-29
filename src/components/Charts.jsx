@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { custom_ajax } from "../custom_ajax";
 
-function ChartView({type,compressor_index=undefined}) {
+function ChartView({ type, compressor_index = undefined }) {
 	var [data, set_data] = useState(null)
-	var [filters, set_filters] = useState({
-	})
+	var [filters, set_filters] = useState({})
 	var [charts,set_charts] = useState([])
 	function build_chart_data() {
 		var chart_data;
 		if (type === "common") {
 			chart_data = {
 				labels: data.logs.map(log => new Date(log.date).toUTCString()),
-				datasets: Object.keys(data.logs[0].common).map(common_data_field_name => {
+				datasets: Object.keys(data.logs[0].common.data).map(common_data_field_name => {
 					return {
 						label: common_data_field_name,
 						data: data.logs.map(log => {
@@ -89,15 +88,30 @@ function ChartView({type,compressor_index=undefined}) {
 	//setInterval(init_or_update_chart,2000)
 	return (
 		<div className="border border-blue-400 m-2 p-2">
-			<h1>compressor #{compressor_index }</h1>
+			<h1>{type==="common" && "common data" || type==="compressor" && `compressor #${compressor_index}` }</h1>
 			<canvas id={"common_chart"+compressor_index}></canvas>
 			<button onClick={fetch_data}
-			className="px-1 pt-1 border border-blue-400 rounded mx-2"
+			className="px-1 pt-1 border border-blue-400 rounded mx-2 mt-3"
 			>update now</button>
+			{type === "common" && (
+				<>
+					<h1 className="text-lg mt-2">errors :</h1>
+					{data === null && (
+						<h1>loading ...</h1>
+					)}
+					{data !== null && (
+						data.logs.map(log => {
+							return (
+								<p>{ `errors of log at "${new Date(log.date).toUTCString()}" : ${JSON.stringify(log.common.errors)}`}</p>
+							)
+						})
+					)}
+				</>
+			)}
 		</div>
 	);
 }
-export function Compressors() {
+export function ChartsComponent() {
 	var [data, set_data] = useState(null)
 	function fetch_data() {
 		custom_ajax({
@@ -116,15 +130,17 @@ export function Compressors() {
 				<h1>loading the data ...</h1>
 			)}
 			{data !== null && (
-				<ChartView type="common"/>
-			) && data.logs[0].compressors.map((compressor, index) => {
-				return (
-					<React.Fragment key={index}>
-						<ChartView type="compressor" compressor_index={index}/>
-					</React.Fragment>
-					
-				)
-			})}
+				<>
+					<ChartView type="common" />
+					{data.logs[0].compressors.map((compressor, index) => {
+						return (
+							<React.Fragment key={index}>
+								<ChartView type="compressor" compressor_index={index}/>
+							</React.Fragment>
+						)
+					})}
+				</>
+			)}
 			
 		</>
 		
