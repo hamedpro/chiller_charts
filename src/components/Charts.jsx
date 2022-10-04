@@ -39,7 +39,7 @@ function ChartView({ type, compressor_index = undefined }) {
 				}),
 			}
 		}
-		console.log(chart_data)
+		//console.log(chart_data)
 		//filtering the data depending on "filters" state
 
 		return chart_data
@@ -100,9 +100,9 @@ function ChartView({ type, compressor_index = undefined }) {
 						<h1>loading ...</h1>
 					)}
 					{data !== null && (
-						data.logs.map(log => {
+						data.logs.map((log,log_index) => {
 							return (
-								<p>{ `errors of log at "${new Date(log.date).toUTCString()}" : ${JSON.stringify(log.common.errors)}`}</p>
+								<p key={log_index}>{ `errors of log at "${new Date(log.date).toUTCString()}" : ${JSON.stringify(log.common.errors)}`}</p>
 							)
 						})
 					)}

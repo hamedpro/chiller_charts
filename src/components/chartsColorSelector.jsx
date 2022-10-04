@@ -21,7 +21,7 @@ export function ChartsColorSelector({update_the_parent}) {
     var [palettes, set_palettes] = useState(gen_5_palettes)
     var [selected_palette_index,set_selected_palette_index] = useState(null)
     useEffect(() => {
-        console.log(palettes)
+        //console.log(palettes)
     },[])
     function apply_color_palette() {
         if (selected_palette_index === null) {
@@ -35,7 +35,7 @@ export function ChartsColorSelector({update_the_parent}) {
                 color_palette : palettes[selected_palette_index]
             }
         }).then(data => {
-            console.log('done successfuly!')
+            alert('done successfuly!')
         }, e => {
             alert('something went wrong when uploading the settings changes')
             console.log(e)
@@ -44,7 +44,7 @@ export function ChartsColorSelector({update_the_parent}) {
     return (
         <>
             <h1>select one of these existing color palettes or click the regenerate palettes button</h1>
-            <div id="palettes" className="flex h-56 w-full justify-between p-2">
+            <div id="palettes" className="flex h-56 w-full justify-between p-2 px-1">
                 {palettes.map((palette, index)=>{
                     return (
                         
@@ -66,7 +66,7 @@ export function ChartsColorSelector({update_the_parent}) {
                 })}
             </div>
 
-            <button className="border border-stone-400 p-1 rounded" onClick={()=>set_palettes(gen_5_palettes)}>regenerate palettes</button>
+            <button className="border border-stone-400 p-1 rounded block mb-1 mt-1" onClick={()=>set_palettes(gen_5_palettes)}>regenerate palettes</button>
             <button className="border border-stone-400 p-1 rounded" onClick={apply_color_palette}>apply this color palette</button>
         </>
     )
