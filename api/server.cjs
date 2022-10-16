@@ -13,7 +13,7 @@ var paths = {
     processed_data: path.join(__dirname, 'processed_data.json')
 }
 
-if (!fs.existsSync()) {
+if (!fs.existsSync(paths.settings)) {
     fs.writeFileSync(paths.settings, JSON.stringify({}))
     console.log('settings.json was created automatically')
 }
