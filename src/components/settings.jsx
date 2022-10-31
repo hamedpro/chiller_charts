@@ -25,11 +25,7 @@ export function Settings() {
             {settings !== null && (
                 <>
                     {/* <h1>{ JSON.stringify(settings)}</h1> */}
-                    <Section title='selecting chart colors' className="mb-2">
-                        <ChartsColorSelector update_the_parent={fetch_data} />
-                    </Section>
                     <SelectUpdateCycleSection />
-                    
                 </>
             )}
         </div>
