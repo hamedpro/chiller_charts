@@ -1,3 +1,4 @@
+require('dotenv').config()
 var path = require('path')
 var express = require('express')
 var cors = require('cors')
@@ -34,7 +35,6 @@ app.get('/', (req, res) => {
         }) */
         var generated_fake_data = gen_fake_data()
         generated_fake_data['settings'] = get_settings()
-
         res.json(generated_fake_data)
     } catch (e) {
         res.status(500)
@@ -48,9 +48,9 @@ app.post('/settings', (req, res) => {
         Object.keys(req.body).forEach(key => {
             settings[key] = req.body[key]
         })
-        console.log(JSON.stringify(settings))
-        fs.writeFileSync('./settings.json', JSON.stringify(settings)) //received settings should be JSON stringified
-        res.json({})
+        console.log('settings are going to be written',{settings})
+        fs.writeFileSync(paths.settings, JSON.stringify(settings))
+        res.status(200).json({})
     } catch (e) {
         res.status(500)
         res.json(e)

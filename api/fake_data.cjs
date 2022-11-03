@@ -27,7 +27,7 @@ function gen_fake_compressor() {
 }
 var gen_log = () => {
 	return {
-		date: new Date().getTime(),
+		date: new Date().getTime() - 40000,
 		common: {
 			errors: {
 				2: 4,

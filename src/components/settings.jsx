@@ -10,7 +10,7 @@ export function Settings() {
         custom_ajax({
             route : "/"
         }).then(data => {
-            set_settings(data.settings )
+            set_settings(data.settings)
         }, error => {
             alert('something went wrong !')
             console.log(error)

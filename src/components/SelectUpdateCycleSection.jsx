@@ -10,7 +10,7 @@ export function SelectUpdateCycleSection() {
         custom_ajax({
             route: "/settings",
             body: {
-                update_cycle_duration : (new_duration)
+                update_cycle_duration : Number(new_duration)
                 //useless_field : "hamed"
             },
             method : "POST"
@@ -37,7 +37,7 @@ export function SelectUpdateCycleSection() {
             <p>
                 how often do you want to fetch the new information and update charts from server ? (values are in seconds)
             </p>
-            {[20, 60, 120, 300].map((duration_in_seconds, index) => {
+            {[5,10,20,60,120].map((duration_in_seconds, index) => {
                 return (
                     <p key={duration_in_seconds} onClick={ ()=>set_update_cycle_duration(duration_in_seconds)}>{selected_duration === duration_in_seconds ? <Circle /> : <CircleOutlined />} {duration_in_seconds}seconds</p>
                 )

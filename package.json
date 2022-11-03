@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "export data_absolute_file_path=~/coding/chiller_charts/data_example.txt ;npx tailwindcss -c ./tailwind.config.cjs -i ./src/input.css -o ./src/output.css --watch & vite & nodemon ./api/server.cjs"
+    "dev": "npx tailwindcss -c ./tailwind.config.cjs -i ./src/input.css -o ./src/output.css --watch & vite & nodemon ./api/server.cjs"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
