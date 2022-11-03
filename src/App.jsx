@@ -8,11 +8,11 @@ export default function App() {
 	return (
 		<BrowserRouter>
 			<div className="w-full h-full flex flex-row">
-				<div className="w-1/4 bg-blue-400 text-white h-full">
+				<div className="w-1/6 bg-blue-400 text-white h-full">
 					<SideBar />	
 				</div>
 				
-				<div className="w-3/4 bg-white text-black h-full overflow-y-auto">
+				<div className="w-5/6 bg-white text-black h-full overflow-y-auto">
 					<Routes>
 						<Route path="/" element={<ChartsComponent />} />
 						<Route path="/charts" element={<ChartsComponent />} />

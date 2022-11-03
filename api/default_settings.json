@@ -12,5 +12,6 @@
 		"#100CB3"
     ],
     "charts_background_color" : "rgba(255, 99, 132, 0.2)",
-    "update_cycle_duration" : 120
+    "update_cycle_duration" : 5,
+	"layout" : "1col"
 }

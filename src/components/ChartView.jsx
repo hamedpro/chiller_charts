@@ -7,7 +7,9 @@ var cloned_filters = null /*
 	define it out here first 
 	more info : https://stackoverflow.com/questions/1047454/what-is-lexical-scope
 */
-export function ChartView({ type, compressor_index = undefined }) {
+var debug_mode = false //if true there will be some more console.logs and ... in order to make debugging easier
+export function ChartView({ type, compressor_index = undefined, className="" }) {
+	//console.log(compressor_index)
 	var [filters, set_filters] = useState({});
 	cloned_filters = filters
 	var [data, set_data] = useState(null);
@@ -23,11 +25,11 @@ export function ChartView({ type, compressor_index = undefined }) {
 		}
 
 		var filtered_data = { ...data_prop };
-		if (compressor_index === undefined) {
+		if (compressor_index === undefined && debug_mode) {
 			console.group()
 		}
 		
-		if (compressor_index === undefined) {
+		if (compressor_index === undefined && debug_mode) {
 			console.log('going to check if there is any filter or not', cloned_filters)
 		}
 		if (Object.keys(cloned_filters).length !== 0) {
@@ -49,10 +51,10 @@ export function ChartView({ type, compressor_index = undefined }) {
 				});
 			}
 		}
-		if (compressor_index === undefined) {
+		if (compressor_index === undefined && debug_mode) {
 			console.log(filtered_data)
 		}
-		if (compressor_index === undefined) {
+		if (compressor_index === undefined && debug_mode) {
 			console.groupEnd()
 		}
 		if (filtered_data.logs.length === 0) return null;
@@ -96,7 +98,7 @@ export function ChartView({ type, compressor_index = undefined }) {
 		}
 	}
 	async function update_chart() {
-		/* if (compressor_index === undefined) {
+		/* if (compressor_index === undefined && debug_mode) {
 			console.log(Object.keys(filters).length);
 		} */
 		set_alert_statuses((prev_state) => {
@@ -118,7 +120,7 @@ export function ChartView({ type, compressor_index = undefined }) {
 					fetch_error: true,
 				};
 			});
-			/* if (compressor_index === undefined) {
+			/* if (compressor_index === undefined && debug_mode) {
 				in the time of writing what is put here will only execute for the first component 
 					becuse it doesnt belong to a compressor and it shows the common data instead
 				
@@ -158,7 +160,7 @@ export function ChartView({ type, compressor_index = undefined }) {
 				};
 			});
 		} else {
-			/* if (compressor_index === undefined) {
+			/* if (compressor_index === undefined && debug_mode) {
 				console.log(Object.keys(filters).length );
 			} */
 			window.charts[compressor_index].data = chart_data;
@@ -209,7 +211,7 @@ export function ChartView({ type, compressor_index = undefined }) {
 		
 	}, [filters]); */
 	return (
-		<div className="border border-blue-400 m-2 p-2">
+		<div className={["border border-blue-700 rounded m-2 p-2 overflow-y-auto overflow-x-hidden",className].join(' ')}>
 			<div>
 				<p
 					className={[

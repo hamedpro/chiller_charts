@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { useState } from "react"
+import { Section } from "../common_components/Section"
 import { custom_ajax } from "../custom_ajax"
-import { Section } from "../common_components/Section.jsx"
-import {ChartsColorSelector} from "./chartsColorSelector.jsx"
+import { SelectLayoutSection } from "./SelectLayoutSection"
 import { SelectUpdateCycleSection } from "./SelectUpdateCycleSection"
 export function Settings() {
     var [settings,set_settings] = useState(null)
@@ -26,6 +26,10 @@ export function Settings() {
                 <>
                     {/* <h1>{ JSON.stringify(settings)}</h1> */}
                     <SelectUpdateCycleSection />
+                    <SelectLayoutSection
+                        settings={settings}
+                        fetch_data_func={fetch_data}
+                    />
                 </>
             )}
         </div>
