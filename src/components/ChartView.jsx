@@ -7,7 +7,7 @@ var cloned_filters = null /*
 	define it out here first 
 	more info : https://stackoverflow.com/questions/1047454/what-is-lexical-scope
 */
-var debug_mode = false //if true there will be some more console.logs and ... in order to make debugging easier
+var debug_mode = true //if true there will be some more console.logs and ... in order to make debugging easier
 export function ChartView({ type, compressor_index = undefined, className="" }) {
 	//console.log(compressor_index)
 	var [filters, set_filters] = useState({});
@@ -98,6 +98,7 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 		}
 	}
 	async function update_chart() {
+		//console.log('update function was called right now')
 		/* if (compressor_index === undefined && debug_mode) {
 			console.log(Object.keys(filters).length);
 		} */
@@ -173,11 +174,6 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 			};
 		});
 	}
-
-	useEffect(() => {
-		update_chart();
-	}, [filters]);
-	var [intervals, set_intervals] = useState([]);
 	useEffect(() => {
 		if (window.charts === undefined) {
 			window.charts = {};
@@ -190,26 +186,32 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 			var fetch_result = await custom_ajax({
 				route: "/",
 			});
-			set_intervals((prev_intervals) => {
-				return [
-					...prev_intervals,
-					setInterval(update_chart, fetch_result.settings.update_cycle_duration * 1000),
-				];
-			});
+			if (window.interval_ids === undefined) {
+				window.interval_ids ={}
+			}
+			window.interval_ids[compressor_index] = setInterval(() => {
+				if (compressor_index === undefined && debug_mode) {
+					if (window.last_interval_timestamp === undefined) {
+						window.last_interval_timestamp = new Date().getTime()
+					}
+					console.log(((new Date().getTime() - window.last_interval_timestamp) / 1000) + "seconds are past from last time")
+					window.last_interval_timestamp = new Date().getTime()
+				}
+				update_chart()
+			}, fetch_result.settings.update_cycle_duration * 1000);
+			//console.log(`a interval was set with interval time = ${ fetch_result.settings.update_cycle_duration * 1000}`)
 		};
 		tmp();
+		update_chart()
 	}, []);
 	useEffect(() => {
 		return () => {
-			//clearing intervals
-			for (let i = 0; i < intervals.length; i++) {
-				clearInterval(intervals[i]);
+			//clearing upadate interval
+			if (window.interval_ids[compressor_index]) {
+				clearInterval(window.interval_ids[compressor_index]);
 			}
 		};
 	}, []);
-	/* useEffect(() => {
-		
-	}, [filters]); */
 	return (
 		<div className={["border border-blue-700 rounded m-2 p-2 overflow-y-auto overflow-x-hidden",className].join(' ')}>
 			<div>
@@ -252,7 +254,7 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 
 			<div className="border border-red-400 rounded mt-2 p-2">
 				<h1>show logs of "x" seconds age :</h1>
-				<div className="flex space-x-1 flex-row flex-wrap">
+				<div className="flex space-x-1 flex-row flex-wrap mb-2">
 					{[20, 60, 120, 180, 300, 600].map((number) => {
 						return (
 							<p
@@ -262,6 +264,7 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 										...old_filters,
 										from: number,
 									}));
+									alert('your newly added filters will effect on the first future update')
 								}}
 								className="inline border-blue-400 border rounded-lg h-fit mt-1 px-1 hover:bg-blue-600 hover:text-white cursor-pointer duration-300"
 							>
@@ -277,15 +280,21 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 				</div>
 				<span className="mt-2">or enter a duration manually (in seconds) :</span>{" "}
 				<input
-					onChange={(event) => {
-						var time_limit = event.target.value;
+					id="time_limit_input"
+					className="px-2 border border-blue-400 rounded my-1"
+				/>
+				<button
+					onClick={() => {
+						var time_limit = document.getElementById('time_limit_input').value 
 						set_filters((old_filters) => ({
 							...old_filters,
 							from: time_limit,
 						}));
+						alert('your newly added filters will effect on the first future update')
 					}}
-					className="px-2 border border-blue-400 rounded my-1"
-				/>
+					className="border border-blue-400 rounded mx-2 px-2 mt-1"
+				>submit change </button>
+
 			</div>
 			{type === "common" && (
 				<>

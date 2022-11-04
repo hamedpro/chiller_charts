@@ -1,7 +1,7 @@
 var fs = require("fs");
 const path = require("path");
 var read_data = (file_path) => {
-	return fs.readFileSync(file_path, "utf8");
+	return fs.readFileSync(path.resolve(file_path), "utf8");
 };
 function is_dot_or_number(char) {
 	// it does only accept single characters
