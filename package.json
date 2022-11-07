@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx tailwindcss -c ./tailwind.config.cjs -i ./src/input.css -o ./src/output.css --watch & (export $(less .env) && vite --port $(echo $frontend_port) )& nodemon ./api/server.cjs"
+    "dev": "npx tailwindcss -c ./tailwind.config.cjs -i ./src/input.css -o ./src/output.css --watch & (export $(less .env) && vite --host  --port $(echo $frontend_port) )& nodemon ./api/server.cjs"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
