@@ -26,7 +26,7 @@ function get_settings() {
     })
     return default_settings
 }
-var processed_data = process_data(process.env.data_absolute_file_path)
+//var processed_data = process_data(process.env.data_absolute_file_path)
 app.get('/', (req, res) => {
     try {
         /* res.json({
@@ -40,7 +40,6 @@ app.get('/', (req, res) => {
         res.status(500)
         res.json(e)
     }
-    
 })
 app.post('/settings', (req, res) => {
     try {
