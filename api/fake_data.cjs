@@ -26,13 +26,17 @@ function gen_fake_compressor() {
 	};
 }
 var gen_log = () => {
+	var errors = {}
+	if (custom_rand(9) > 4) {
+		errors = {
+			2: 4,
+			3: 5,
+		}
+	}
 	return {
 		date: new Date().getTime() - 40000,
 		common: {
-			errors: {
-				2: 4,
-				3: 5,
-			},
+			errors,
 			data: {
 				temp_inlet: custom_rand(10),
 				temp_outlet: custom_rand(12),

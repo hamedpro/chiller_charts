@@ -65,16 +65,24 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 					(common_data_field_name) => {
 						return {
 							label: common_data_field_name,
-							data: data_prop.logs.map((log) => {
-								return log.common.data[common_data_field_name];
-							}),
+							data: data_prop.logs.map((log) => log.common.data[common_data_field_name]),
 							backgroundColor: "rgba(255, 99, 132, 0.2)",
 							borderColor: "rgba(66, 40, 181, 0.8)",
 							borderWidth: 1,
+							segment: {
+								borderColor: ctx => {
+									return Object.keys(data_prop.logs[ctx.p1DataIndex].common.errors).length === 0 ? undefined : "rgb(255,0,0)"
+								}
+							},
+							spanGaps : true
 						};
 					}
 				),
 			};
+			/* todo : show error if you are using object.keys of 
+			for ex filtered_data.logs[0].common.data and 
+			you expect the others to be like that and they're not 
+			*/
 		} else if (type === "compressor") {
 			var field_names = Object.keys(filtered_data.logs[0].compressors[0]);
 			return {
@@ -83,14 +91,18 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 					(compressor_data_field_name) => {
 						return {
 							label: compressor_data_field_name,
-							data: filtered_data.logs.map((log) => {
-								return log.compressors[compressor_index].data[
-									compressor_data_field_name
-								];
-							}),
+							data: filtered_data.logs.map((log) => log.compressors[compressor_index].data[
+								compressor_data_field_name
+							]),
 							backgroundColor: "rgba(255, 99, 132, 0.2)",
 							borderColor: "rgba(66, 40, 181, 0.8)",
 							borderWidth: 1,
+							segment: {
+								borderColor: ctx => {
+									return Object.keys(filtered_data.logs[ctx.p1DataIndex].common.errors).length === 0 ? undefined : "rgb(255,0,0)"
+								}
+							},
+							spanGaps : true
 						};
 					}
 				),
