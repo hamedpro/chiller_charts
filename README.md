@@ -1,18 +1,20 @@
 ## how to use
-> important note! : this README file explanations may not work on machines which doesnt run linux or osX
+> important note! : this README file explanations may not work on machines which doesnt run unix like osS
 
 - first make sure you have node js and npm installed
 - then install dependencies with this command :
 ```
 npm i
 ```
-- then create a .env file in project root (if it doesn't exist) and add this line below with correct value to that :
+- then create a .env file in project root (if it doesn't exist) and add these required env vars like the following style :
 ```
-data_absolute_file_path=an_absolute_path_without_any_quotes
+data_absolute_file_path="./data_example.txt"
+frontend_port=4009
+API_BASE_PATH=http://localhost:4000
 ```
 - then start the application using this command : 
 ```
-npm start
+npm run dev 
 ```
 
 
