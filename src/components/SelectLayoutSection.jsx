@@ -2,6 +2,7 @@ import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Section } from "../common_components/Section";
 import { custom_ajax } from "../custom_ajax";
+import swal from 'sweetalert';
 export const SelectLayoutSection = ({ fetch_data_func, settings }) => {
     var [layout, set_layout] = useState(settings.layout)
     //possible values for layout : "1col" || "2col"
@@ -13,10 +14,17 @@ export const SelectLayoutSection = ({ fetch_data_func, settings }) => {
             },
             method : "POST"
         }).then(data => {
-            alert('done successfuly')
+            swal({
+                text: "done successfuly",
+                icon : "success"
+            })              
             fetch_data_func()
         }, error => {
-            alert('something went wrong while trying to ask server to update layout mode (error will be loged in dev console)')
+            swal({
+                text: "something went wrong while trying to ask server to update layout mode (error will be loged in dev console)",
+                icon: "warning",
+                dangerMode: true,
+            })    
             console.log(error)
         })
     }

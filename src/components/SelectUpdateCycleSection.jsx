@@ -1,9 +1,9 @@
-import { CircleOutlined ,Circle} from "@mui/icons-material";
+import { CircleOutlined ,Circle, CheckBox, CheckBoxOutlined, CheckBoxOutlineBlank} from "@mui/icons-material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Section } from "../common_components/Section";
 import { custom_ajax } from "../custom_ajax";
-
+import swal from 'sweetalert';
 export function SelectUpdateCycleSection() {
     var [selected_duration, set_selected_duration] = useState(null)
     function set_update_cycle_duration(new_duration) {
@@ -14,10 +14,16 @@ export function SelectUpdateCycleSection() {
                 //useless_field : "hamed"
             },
             method : "POST"
-        }).then(data => {
-            alert('done successfuly!')
+        }).then(data => { swal({
+            text: "done successfuly",
+            icon : "success"
+        })         
         }, error => {
-            alert("something went wrong")
+            swal({
+            text: "something went wrong while trying to ask server to update 'update_cycle_duration' (error will be loged in dev console)",
+            icon: "warning",
+            dangerMode: true,
+        })  
             console.log(error)
         }).finally(fetch_data)
     }
@@ -39,7 +45,7 @@ export function SelectUpdateCycleSection() {
             </p>
             {[5,10,20,60,120].map((duration_in_seconds, index) => {
                 return (
-                    <p key={duration_in_seconds} onClick={ ()=>set_update_cycle_duration(duration_in_seconds)}>{selected_duration === duration_in_seconds ? <Circle /> : <CircleOutlined />} {duration_in_seconds}seconds</p>
+                    <p key={duration_in_seconds} onClick={ ()=>set_update_cycle_duration(duration_in_seconds)}>{selected_duration === duration_in_seconds ? <CheckBox /> : <CheckBoxOutlineBlank />} {duration_in_seconds}seconds</p>
                 )
             })}
         </Section>
