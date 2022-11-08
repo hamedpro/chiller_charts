@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { Section } from "../common_components/Section"
 import { custom_ajax } from "../custom_ajax"
+import { DataAbsoluteFilePathSection } from "./DataAbsoluteFilePathSection"
 import { SelectLayoutSection } from "./SelectLayoutSection"
 import { SelectUpdateCycleSection } from "./SelectUpdateCycleSection"
 export function Settings() {
@@ -27,6 +28,10 @@ export function Settings() {
                     {/* <h1>{ JSON.stringify(settings)}</h1> */}
                     <SelectUpdateCycleSection />
                     <SelectLayoutSection
+                        settings={settings}
+                        fetch_data_func={fetch_data}
+                    />
+                    <DataAbsoluteFilePathSection
                         settings={settings}
                         fetch_data_func={fetch_data}
                     />

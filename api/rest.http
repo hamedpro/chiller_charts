@@ -4,3 +4,7 @@ Content-Type: application/json
 {
     "key1" : "val of key1"
 }
+###
+
+GET http://localhost:4000/data_file_hash
+Content-Type: application/json

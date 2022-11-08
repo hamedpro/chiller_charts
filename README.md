@@ -8,7 +8,6 @@ npm i
 ```
 - then create a .env file in project root (if it doesn't exist) and add these required env vars like the following style :
 ```
-data_absolute_file_path="./data_example.txt"
 frontend_port=4009
 API_BASE_PATH=http://localhost:4000
 ```

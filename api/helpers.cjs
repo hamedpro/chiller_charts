@@ -1,3 +1,4 @@
+var crypto = require('crypto')
 function items_are_same(array, log_diffrences = false) {
     var diffrences = []
     for (let i = 0; i < array.length; i++){
@@ -59,7 +60,12 @@ function simple_compare(item1, item2) {
     }
     
 }
+function calc_sha256(input) {
+    const hash = crypto.createHash('sha256').update(input).digest('base64');
+    return hash 
+}
 module.exports = {
     items_are_same,
-    simple_compare
+    simple_compare,
+    calc_sha256
 }

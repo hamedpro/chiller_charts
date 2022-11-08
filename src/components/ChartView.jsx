@@ -122,6 +122,20 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 			}; //todo take care about alerts system and also about that set_state is async
 		});
 		try {
+			var data_file_hash = await custom_ajax({
+				route : "/data_file_hash"
+			})
+			//console.log(data_file_hash)
+			if (data_file_hash !== null) {
+				if (window.local_data_file_hash === data_file_hash) {
+					window.local_data_file_hash = data_file_hash
+					console.log('data file has not changed since last update so updating process was terminated')
+					return
+				} else {
+					window.local_data_file_hash = data_file_hash
+				}
+			}
+			
 			var fetched_data = await custom_ajax({
 				route: "/",
 			});
