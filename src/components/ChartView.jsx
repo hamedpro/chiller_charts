@@ -1,17 +1,18 @@
 import { CheckBox, CheckBoxOutlineBlankOutlined } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
+import { Section } from "../common_components/Section";
 import { custom_ajax } from "../custom_ajax";
-var cloned_filters = null /* 
+var cloned_filters = null; /* 
 	becuse of lexical scope and that we are using this filters 
 	inside a function chain inside a setInterval we should use this trick to 
 	define it out here first 
 	more info : https://stackoverflow.com/questions/1047454/what-is-lexical-scope
 */
-var debug_mode = true //if true there will be some more console.logs and ... in order to make debugging easier
-export function ChartView({ type, compressor_index = undefined, className="" }) {
+var debug_mode = false; //if true there will be some more console.logs and ... in order to make debugging easier
+export function ChartView({ type, compressor_index = undefined, className = "" }) {
 	//console.log(compressor_index)
 	var [filters, set_filters] = useState({});
-	cloned_filters = filters
+	cloned_filters = filters;
 	var [data, set_data] = useState(null);
 	var [alert_statuses, set_alert_statuses] = useState({
 		loading: false,
@@ -26,11 +27,11 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 
 		var filtered_data = { ...data_prop };
 		if (compressor_index === undefined && debug_mode) {
-			console.group()
+			console.group();
 		}
-		
+
 		if (compressor_index === undefined && debug_mode) {
-			console.log('going to check if there is any filter or not', cloned_filters)
+			console.log("going to check if there is any filter or not", cloned_filters);
 		}
 		if (Object.keys(cloned_filters).length !== 0) {
 			if (cloned_filters["from"]) {
@@ -52,10 +53,10 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 			}
 		}
 		if (compressor_index === undefined && debug_mode) {
-			console.log(filtered_data)
+			console.log(filtered_data);
 		}
 		if (compressor_index === undefined && debug_mode) {
-			console.groupEnd()
+			console.groupEnd();
 		}
 		if (filtered_data.logs.length === 0) return null;
 		if (type === "common") {
@@ -65,16 +66,22 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 					(common_data_field_name) => {
 						return {
 							label: common_data_field_name,
-							data: filtered_data.logs.map((log) => log.common.data[common_data_field_name]),
+							data: filtered_data.logs.map(
+								(log) => log.common.data[common_data_field_name]
+							),
 							backgroundColor: "rgba(255, 99, 132, 0.2)",
 							borderColor: "rgba(66, 40, 181, 0.8)",
 							borderWidth: 1,
 							segment: {
-								borderColor: ctx => {
-									return Object.keys(filtered_data.logs[ctx.p1DataIndex].common.errors).length === 0 ? undefined : "rgb(255,0,0)"
-								}
+								borderColor: (ctx) => {
+									return Object.keys(
+										filtered_data.logs[ctx.p1DataIndex].common.errors
+									).length === 0
+										? undefined
+										: "rgb(255,0,0)";
+								},
 							},
-							spanGaps : true
+							spanGaps: true,
 						};
 					}
 				),
@@ -91,18 +98,25 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 					(compressor_data_field_name) => {
 						return {
 							label: compressor_data_field_name,
-							data: filtered_data.logs.map((log) => log.compressors[compressor_index].data[
-								compressor_data_field_name
-							]),
+							data: filtered_data.logs.map(
+								(log) =>
+									log.compressors[compressor_index].data[
+										compressor_data_field_name
+									]
+							),
 							backgroundColor: "rgba(255, 99, 132, 0.2)",
 							borderColor: "rgba(66, 40, 181, 0.8)",
 							borderWidth: 1,
 							segment: {
-								borderColor: ctx => {
-									return Object.keys(filtered_data.logs[ctx.p1DataIndex].common.errors).length === 0 ? undefined : "rgb(255,0,0)"
-								}
+								borderColor: (ctx) => {
+									return Object.keys(
+										filtered_data.logs[ctx.p1DataIndex].common.errors
+									).length === 0
+										? undefined
+										: "rgb(255,0,0)";
+								},
 							},
-							spanGaps : true
+							spanGaps: true,
 						};
 					}
 				),
@@ -123,19 +137,21 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 		});
 		try {
 			var data_file_hash = await custom_ajax({
-				route : "/data_file_hash"
-			})
+				route: "/data_file_hash",
+			});
 			//console.log(data_file_hash)
 			if (data_file_hash !== null) {
 				if (window.local_data_file_hash === data_file_hash) {
-					window.local_data_file_hash = data_file_hash
-					console.log('data file has not changed since last update so updating process was terminated')
-					return
+					window.local_data_file_hash = data_file_hash;
+					console.log(
+						"data file has not changed since last update so updating process was terminated"
+					);
+					return;
 				} else {
-					window.local_data_file_hash = data_file_hash
+					window.local_data_file_hash = data_file_hash;
 				}
 			}
-			
+
 			var fetched_data = await custom_ajax({
 				route: "/",
 			});
@@ -213,22 +229,25 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 				route: "/",
 			});
 			if (window.interval_ids === undefined) {
-				window.interval_ids ={}
+				window.interval_ids = {};
 			}
 			window.interval_ids[compressor_index] = setInterval(() => {
 				if (compressor_index === undefined && debug_mode) {
 					if (window.last_interval_timestamp === undefined) {
-						window.last_interval_timestamp = new Date().getTime()
+						window.last_interval_timestamp = new Date().getTime();
 					}
-					console.log(((new Date().getTime() - window.last_interval_timestamp) / 1000) + "seconds are past from last time")
-					window.last_interval_timestamp = new Date().getTime()
+					console.log(
+						(new Date().getTime() - window.last_interval_timestamp) / 1000 +
+							"seconds are past from last time"
+					);
+					window.last_interval_timestamp = new Date().getTime();
 				}
-				update_chart()
+				update_chart();
 			}, fetch_result.settings.update_cycle_duration * 1000);
 			//console.log(`a interval was set with interval time = ${ fetch_result.settings.update_cycle_duration * 1000}`)
 		};
 		tmp();
-		update_chart()
+		update_chart();
 	}, []);
 	useEffect(() => {
 		return () => {
@@ -238,8 +257,14 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 			}
 		};
 	}, []);
+	var possible_options_for_from_limit = [20, 60, 120, 180, 300, 600]
 	return (
-		<div className={["border border-blue-700 rounded m-2 p-2 overflow-y-auto overflow-x-hidden",className].join(' ')}>
+		<div
+			className={[
+				"border border-blue-700 rounded m-2 p-2 overflow-y-auto overflow-x-hidden",
+				className,
+			].join(" ")}
+		>
 			<div>
 				<p
 					className={[
@@ -277,65 +302,92 @@ export function ChartView({ type, compressor_index = undefined, className="" }) 
 			>
 				update now
 			</button>
-
-			<div className="border border-red-400 rounded mt-2 p-2">
-				<h1>show logs of "x" seconds age :</h1>
-				<div className="flex space-x-1 flex-row flex-wrap mb-2">
-					{[20, 60, 120, 180, 300, 600].map((number) => {
-						return (
-							<p
-								key={number}
-								onClick={() => {
-									set_filters((old_filters) => ({
-										...old_filters,
-										from: number,
-									}));
-									alert('your newly added filters will effect on the first future update')
-								}}
-								className="inline border-blue-400 border rounded-lg h-fit mt-1 px-1 hover:bg-blue-600 hover:text-white cursor-pointer duration-300"
-							>
-								{filters["from"] === number ? (
-									<CheckBox />
-								) : (
-									<CheckBoxOutlineBlankOutlined />
-								)}
-								{number} seconds
-							</p>
-						);
-					})}
-				</div>
-				<span className="mt-2">or enter a duration manually (in seconds) :</span>{" "}
-				<input
-					id="time_limit_input"
-					className="px-2 border border-blue-400 rounded my-1"
-				/>
-				<button
-					onClick={() => {
-						var time_limit = document.getElementById('time_limit_input').value 
-						set_filters((old_filters) => ({
-							...old_filters,
-							from: time_limit,
-						}));
-						alert('your newly added filters will effect on the first future update')
-					}}
-					className="border border-blue-400 rounded mx-2 px-2 mt-1"
-				>submit change </button>
-
-			</div>
-			{type === "common" && (
-				<>
-					<h1 className="text-lg mt-2">errors :</h1>
+			<Section title="errors" className="mt-2 bg-sky-200 text-red-900">
+				<div className="px-2">
 					{data === null && <h1>loading ...</h1>}
 					{data !== null &&
 						data.logs.map((log, log_index) => {
 							return (
-								<p key={log_index}>{`errors of log at "${new Date(
-									log.date
-								).toUTCString()}" : ${JSON.stringify(log.common.errors)}`}</p>
+								<React.Fragment key={log_index}>
+									<p
+										className="my-2"
+										
+									>{`log #${log_index} which is submited at "${new Date(
+										log.date
+									).toUTCString()}" has ${
+										Object.keys(log.common.errors).length
+									} errors with the following values : ${JSON.stringify(
+										log.common.errors
+									)}`}</p>
+									{log_index !== data.logs.length - 1 && <hr />}
+								</React.Fragment>
 							);
 						})}
-				</>
-			)}
+				</div>
+			</Section>
+			<Section title="how long do you want to see logs of ?" className="mt-2 bg-sky-600 text-white">
+				<div className="px-2 pt-2">
+					<p className="text-blue-900 bg-yellow-300 rounded border border-green-200 px-2">note : whenever you modify filters, your newly added filters will effect on the first future update</p>
+					<div className="flex space-x-1 flex-row flex-wrap mb-2 mt-2">
+						{
+							possible_options_for_from_limit
+								.concat([
+									filters['from'] !== undefined &&
+										!possible_options_for_from_limit.includes(filters['from']) ? filters['from'] : null
+								])
+								.filter(i => i !== null)
+								.map((number,index) => {
+							return (
+								<p
+									key={index}
+									onClick={() => {
+										if (filters["from"] === number) {
+											set_filters((old_filters) => ({
+												...old_filters,
+												from: undefined,
+											}));
+										} else {
+											set_filters((old_filters) => ({
+												...old_filters,
+												from: number,
+											}));
+										}
+									}}
+									className="inline border-blue-400 border rounded-lg h-fit mt-1 px-1 hover:bg-blue-600 hover:text-white cursor-pointer duration-300"
+								>
+									{filters["from"] === number ? (
+										<CheckBox />
+									) : (
+										<CheckBoxOutlineBlankOutlined />
+									)}
+									{number} seconds
+								</p>
+							);
+						})}
+					</div>
+					<hr className="mt-4"/>
+					<p className="mt-2 block">or enter a duration manually (in seconds) :</p>
+					<input
+						id="time_limit_input"
+						className="text-black px-2 border border-blue-400 rounded my-1 inline-block"
+					/>
+					<button
+						onClick={() => {
+							var time_limit = Number(document.getElementById("time_limit_input").value);
+							set_filters((old_filters) => ({
+								...old_filters,
+								from: time_limit,
+							}));
+							alert(
+								"your newly added filters will effect on the first future update"
+							);
+						}}
+						className="border border-blue-400 rounded mx-2 px-2 mt-1 inline-block"
+					>
+						submit change{" "}
+					</button>
+				</div>
+			</Section>
 		</div>
 	);
 }

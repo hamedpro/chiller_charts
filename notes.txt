@@ -3,3 +3,4 @@ install nodemon as local dep
 float numbers in js and when you add them to each other 
 
 show a badge about that data is fake until user gives us a data_absolute_file_path 
+change point colors of logs with erros 

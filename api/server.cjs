@@ -18,7 +18,7 @@ var paths = {
 if (!fs.existsSync(paths.settings)) {
     fs.writeFileSync(paths.settings, JSON.stringify({
         charts_background_color : "rgba(255, 99, 132, 0.2)",
-        update_cycle_duration : 5,
+        update_cycle_duration : 10,
         layout: "1col",
         data_absolute_file_path : null 
     }))
@@ -50,7 +50,6 @@ app.get('/', (req, res) => {
             ...processed_data
             }) 
         }
-        
     } catch (e) {
         res.status(500).json(e)
     }

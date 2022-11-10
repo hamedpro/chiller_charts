@@ -5,6 +5,7 @@ import { custom_ajax } from '../custom_ajax'
 export const DataAbsoluteFilePathSection = ({settings, fetch_data_func}) => {
     function update_settings(){
         var new_data_absolute_file_path = window.prompt('enter new value here :')
+        if(new_data_absolute_file_path === null) return 
         custom_ajax({
             route: "/settings",
             method: 'POST',
