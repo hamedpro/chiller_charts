@@ -2,17 +2,23 @@ import { CheckBox, CheckBoxOutlineBlankOutlined } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Section } from "../common_components/Section";
 import { custom_ajax } from "../custom_ajax";
-var cloned_filters = null; /* 
-	becuse of lexical scope and that we are using this filters 
-	inside a function chain inside a setInterval we should use this trick to 
-	define it out here first 
-	more info : https://stackoverflow.com/questions/1047454/what-is-lexical-scope
-*/
+import { gen_window_var } from "../helpers";
+
 var debug_mode = false; //if true there will be some more console.logs and ... in order to make debugging easier
 export function ChartView({ type, compressor_index = undefined, className = "" }) {
+	var cloned_filters_window_var = "rand_rwerwe"+ compressor_index
+	/* 
+		becuse of lexical scope and that we are using this filters 
+		inside a function chain inside a setInterval we should use this trick to 
+		define it out here first 
+		more info : https://stackoverflow.com/questions/1047454/what-is-lexical-scope
+	*/
+	if (window[cloned_filters_window_var] === undefined) {
+		window[cloned_filters_window_var] = null
+	}
 	//console.log(compressor_index)
 	var [filters, set_filters] = useState({});
-	cloned_filters = filters;
+	window[cloned_filters_window_var] = filters
 	var [data, set_data] = useState(null);
 	var [alert_statuses, set_alert_statuses] = useState({
 		loading: false,
@@ -31,12 +37,12 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 		}
 
 		if (compressor_index === undefined && debug_mode) {
-			console.log("going to check if there is any filter or not", cloned_filters);
+			console.log("going to check if there is any filter or not", window[cloned_filters_window_var]);
 		}
-		if (Object.keys(cloned_filters).length !== 0) {
-			if (cloned_filters["from"]) {
+		if (Object.keys(window[cloned_filters_window_var]).length !== 0) {
+			if (window[cloned_filters_window_var]["from"]) {
 				filtered_data.logs = filtered_data.logs.filter((log) => {
-					var from_time = new Date().getTime() - cloned_filters["from"] * 1000;
+					var from_time = new Date().getTime() - window[cloned_filters_window_var]["from"] * 1000;
 					var log_time = log.date;
 					/* console.log(
 						`there is a from filter :‍‍‍‍ filter accepts logs with date bigger or equal to ${from_time} : log time is ${log_time} : log date - filter date = ${
@@ -46,9 +52,9 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 					return log_time >= from_time;
 				});
 			}
-			if (cloned_filters["to"]) {
+			if (window[cloned_filters_window_var]["to"]) {
 				filtered_data.logs = filtered_data.logs.filter((log) => {
-					return Number(log.date) <= cloned_filters["to"];
+					return Number(log.date) <= window[cloned_filters_window_var]["to"];
 				});
 			}
 		}
