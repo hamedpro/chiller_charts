@@ -2,8 +2,6 @@ import { CheckBox, CheckBoxOutlineBlankOutlined } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Section } from "../common_components/Section";
 import { custom_ajax } from "../custom_ajax";
-import { gen_window_var } from "../helpers";
-
 var debug_mode = false; //if true there will be some more console.logs and ... in order to make debugging easier
 export function ChartView({ type, compressor_index = undefined, className = "" }) {
 	var cloned_filters_window_var = "rand_rwerwe"+ compressor_index
@@ -21,7 +19,6 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 	window[cloned_filters_window_var] = filters
 	var [data, set_data] = useState(null);
 	var [alert_statuses, set_alert_statuses] = useState({
-		loading: false,
 		filtered_logs_length_zero: false,
 		fetch_error: false,
 	});
@@ -136,10 +133,9 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 		} */
 		set_alert_statuses((prev_state) => {
 			return {
-				loading: true,
 				filtered_logs_length_zero: false,
 				fetch_error: false,
-			}; //todo take care about alerts system and also about that set_state is async
+			};
 		});
 		try {
 			var data_file_hash = await custom_ajax({
@@ -161,6 +157,9 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 			var fetched_data = await custom_ajax({
 				route: "/",
 			});
+			if (fetched_data === null) {
+				throw "fetch response was equal to null and it was not acceptable!"
+			}
 			set_data(fetched_data);
 		} catch (error) {
 			set_alert_statuses((prev_state) => {
@@ -215,12 +214,6 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 			window.charts[compressor_index].data = chart_data;
 			window.charts[compressor_index].update();
 		}
-		set_alert_statuses((prev_state) => {
-			return {
-				...prev_state,
-				loading: false,
-			};
-		});
 	}
 	useEffect(() => {
 		if (window.charts === undefined) {
@@ -256,6 +249,10 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 		update_chart();
 	}, []);
 	useEffect(() => {
+		 //todo make sure in the first time it runs past useEffect or ... has done its job (or make sure it doesnt depend on that's job!)
+		update_chart()
+	},[filters])
+	useEffect(() => {
 		return () => {
 			//clearing upadate interval
 			if (window.interval_ids[compressor_index]) {
@@ -272,14 +269,6 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 			].join(" ")}
 		>
 			<div>
-				<p
-					className={[
-						"text-red-500",
-						alert_statuses["loading"] ? "block" : "hidden",
-					].join(" ")}
-				>
-					data is being loaded
-				</p>
 				<p
 					className={[
 						"text-red-500",
@@ -333,7 +322,7 @@ export function ChartView({ type, compressor_index = undefined, className = "" }
 			</Section>
 			<Section title="how long do you want to see logs of ?" className="mt-2 bg-sky-600 text-white">
 				<div className="px-2 pt-2">
-					<p className="text-blue-900 bg-yellow-300 rounded border border-green-200 px-2">note : whenever you modify filters, your newly added filters will effect on the first future update</p>
+					<p className="text-blue-900 bg-yellow-300 rounded border border-green-200 px-2">note : unlike the earlier versions of this application, now whenever you modify filters, your newly added filters will immediately effect and chart update process will start</p>
 					<div className="flex space-x-1 flex-row flex-wrap mb-2 mt-2">
 						{
 							possible_options_for_from_limit
